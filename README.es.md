@@ -1113,7 +1113,7 @@ present(resource);
 Como no vas a poder llamar a métodos de Ruby (excepto por `yield`) desde una
 plantilla WLang, casi siempre vas a querer pasarle locales.
 
-### Accessing Variables in Templates
+### Accediendo a las variables desde las plantillas
 
 Las plantillas son evaluadas dentro del mismo contexto que los manejadores de
 ruta. Las variables de instancia asignadas en los manejadores de ruta son
@@ -1138,7 +1138,7 @@ end
 Esto es usado típicamente cuando se renderizan plantillas como parciales desde
 adentro de otras plantillas.
 
-### Templates with `yield` and nested layouts
+### Plantillas con `yield` y capas anidadas
 
 A layout is usually just a template that calls `yield`.
 Such a template can be used either through the `:template` option as
