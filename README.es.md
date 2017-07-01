@@ -40,9 +40,9 @@ Se recomienda ejecutar `gem install thin`, porque Sinatra lo utilizará si está
     * [Rutas](#rutas)
     * [Condiciones](#condiciones)
     * [Valores de retorno](#valores-de-retorno)
-    * [Personalizar Rutas](#rutas-personalizadas)
+    * [Rutas personalizadas](#rutas-personalizadas)
     * [Archivos estáticos](#archivos-estáticos)
-    * [Vistas / Plantillas](#vistas-plantillas)
+    * [Vistas / Plantillas](#vistas--plantillas)
         * [Plantillas literales](#plantillas-literales)
         * [Lenguajes de plantillas disponibles](#lenguajes-de-plantillas-disponibles)
             * [Plantillas Haml](#plantillas-haml)
@@ -125,7 +125,7 @@ Se recomienda ejecutar `gem install thin`, porque Sinatra lo utilizará si está
 
 # Sinatra
 
-## Routes
+## Rutas
 
 En Sinatra, una ruta es un método HTTP junto a un patrón de un URL.
 Cada ruta está asociada a un bloque:
@@ -365,7 +365,7 @@ get('/') { Stream.new }
 ```
 Se puede hacer uso del método helper `stream` (descripto más abajo) para hacer Plantillas y evitar duplicar código en las rutas.
 
-## Comparadores de Rutas Personalizados
+## Rutas personalizadas
 
 Como se mostró anteriormente, Sinatra permite utilizar strings y expresiones regulares para definir las rutas. Sin embargo, la cosa no termina ahí. Podés definir tus propios comparadores muy fácilmente:
 
