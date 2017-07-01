@@ -268,7 +268,7 @@ get '\A/posts\z', :mustermann_opts => { :type => :regexp, :check_anchors => fals
   "If you match an anchored pattern clap your hands!"
 end
 ```
-¡Parece una [condición](#conditions), pero no lo es! Estas opciones se mezclan con las opciones globales del hash `:mustermann_opts` descriptas [más abajo].(#available-settings).
+¡Parece una [condición](#condiciones), pero no lo es! Estas opciones se mezclan con las opciones globales del hash `:mustermann_opts` descriptas [más abajo].(#available-settings).
 
 ## Condiciones
 
