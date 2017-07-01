@@ -982,12 +982,12 @@ distinto al de la plantilla pasando la opción `:layout_engine`.
   </tr>
 </table>
 
-No es posible llamar a metodos ruby desde MediaWiki Markup, ni tampoco pasar variables locales en ellos, Normalmente vas a usarlo en combinacion con otro motor de renderizado.
+No es posible llamar a métodos ruby desde MediaWiki Markup, ni tampoco pasar variables locales en ellos, Normalmente vas a usarlo en combinacion con otro motor de renderizado.
 
 ```ruby
 erb :overview, :locals => { :text => mediawiki(:introduction) }
 ```
-Note que puede tambien llamar al metodo `mediawiki` desde otros templates
+Note que puede tambien llamar al método `mediawiki` desde otros templates
 
 ```ruby
 %h1 Hello From Haml!
@@ -1139,21 +1139,18 @@ Esto es usado típicamente cuando se renderizan plantillas como parciales desde
 adentro de otras plantillas.
 
 ### Plantillas con `yield` y capas anidadas
-
-A layout is usually just a template that calls `yield`.
-Such a template can be used either through the `:template` option as
-described above, or it can be rendered with a block as follows:
+Una capa no es más que una plantilla que invoca a `yield`.
+Como cualquier plantilla puede ser usada a través de la opción `:template` como
+fue descripta arriba, o puede ser rendereada como un bloque, de la siguiente forma:
 
 ```ruby
 erb :post, :layout => false do
   erb :index
 end
 ```
+Este código es equivalente a `erb :index, :layout => :post`.
 
-This code is mostly equivalent to `erb :index, :layout => :post`.
-
-Passing blocks to rendering methods is most useful for creating nested
-layouts:
+Pasar un bloque a los métodos de rendereo es mas usado cuando se crean capas anidadas:
 
 ```ruby
 erb :main_layout, :layout => false do
@@ -1162,21 +1159,19 @@ erb :main_layout, :layout => false do
   end
 end
 ```
-
-This can also be done in fewer lines of code with:
+Esto se puede realizar en menos lineas con:
 
 ```ruby
 erb :admin_layout, :layout => :main_layout do
   erb :user
 end
 ```
+Actualmente, el método de render acepta un bloque  `erb`, `haml`,
+`liquid`, `slim `, `wlang`. Además el método general de `render` acepta el envio de un bloque.
 
-Currently, the following rendering methods accept a block: `erb`, `haml`,
-`liquid`, `slim `, `wlang`. Also the general `render` method accepts a block.
+### Plantillas Inline
 
-### Inline Templates
-
-Templates may be defined at the end of the source file:
+Las plantillas pueden ser definidas al final del archivo fuente:
 
 ```ruby
 require 'sinatra'
@@ -1195,13 +1190,15 @@ __END__
 %div.title Hello world.
 ```
 
-NOTE: Inline templates defined in the source file that requires sinatra are
-automatically loaded. Call `enable :inline_templates` explicitly if you
-have inline templates in other source files.
+NOTA: únicamente las plantillas inline definidas en el archivo fuente que
+requiere Sinatra son cargadas automáticamente. Llamá `enable
+:inline_templates` explícitamente si tenés plantillas inline en otros
+archivos fuente.
 
 ### Named Templates
 
-Templates may also be defined using the top-level `template` method:
+Las plantillas también pueden ser definidas usando el método top-level
+`template`:
 
 ```ruby
 template :layout do
@@ -1217,9 +1214,9 @@ get '/' do
 end
 ```
 
-If a template named "layout" exists, it will be used each time a template
-is rendered. You can individually disable layouts by passing
-`:layout => false` or disable them by default via
+Si existe una plantilla con el nombre "layout", va a ser usada cada vez que
+una plantilla es renderizada. Podés desactivar los layouts individualmente
+pasando `:layout => false` o globalmente con
 `set :haml, :layout => false`:
 
 ```ruby
@@ -1228,39 +1225,37 @@ get '/' do
 end
 ```
 
-### Associating File Extensions
+### Asociando Extensiones de Archivo
 
-To associate a file extension with a template engine, use
-`Tilt.register`. For instance, if you like to use the file extension
-`tt` for Textile templates, you can do the following:
-
+Para asociar una extensión de archivo con un motor de renderizado, usá
+`Tilt.register`. Por ejemplo, si querés usar la extensión `tt` para
+las plantillas Textile, podés hacer lo siguiente:
 ```ruby
 Tilt.register :tt, Tilt[:textile]
 ```
 
-### Adding Your Own Template Engine
+### Agregando Tu Propio Motor de Renderizado
 
-First, register your engine with Tilt, then create a rendering method:
+Primero, registrá tu motor con Tilt, y después, creá tu método de renderizado:
 
 ```ruby
-Tilt.register :myat, MyAwesomeTemplateEngine
+Tilt.register :mipg, MiMotorParaPlantillaGenial
 
 helpers do
-  def myat(*args) render(:myat, *args) end
+  def mypg(*args) render(:mypg, *args) end
 end
 
 get '/' do
-  myat :index
+  mypg :index
 end
 ```
 
-Renders `./views/index.myat`. See https://github.com/rtomayko/tilt to
-learn more about Tilt.
+Renderiza `./views/index.mypg`. Mirá https://github.com/rtomayko/tilt
+para aprender más de Tilt.
 
 ### Using Custom Logic for Template Lookup
 
-To implement your own template lookup mechanism you can write your
-own `#find_template` method:
+Para implementar tu mecanismo de templates, puedes escribir tu propio método `#find_template`:
 
 ```ruby
 configure do
@@ -1274,11 +1269,12 @@ def find_template(views, name, engine, &block)
 end
 ```
 
-## Filters
+## Filtros
 
-Before filters are evaluated before each request within the same context
-as the routes will be and can modify the request and response. Instance
-variables set in filters are accessible by routes and templates:
+Los filtros `before` son evaluados antes de cada petición dentro del mismo
+contexto que las rutas. Pueden modificar la petición y la respuesta. Las
+variables de instancia asignadas en los filtros son accesibles por las rutas y
+las plantillas:
 
 ```ruby
 before do
@@ -1292,10 +1288,10 @@ get '/foo/*' do
 end
 ```
 
-After filters are evaluated after each request within the same context
-as the routes will be and can also modify the request and response.
-Instance variables set in before filters and routes are accessible by
-after filters:
+Los filtros `after` son evaluados después de cada petición dentro del mismo
+contexto y también pueden modificar la petición y la respuesta. Las variables
+de instancia asignadas en los filtros `before` y en las rutas son accesibles por
+los filtros `after`:
 
 ```ruby
 after do
@@ -1303,12 +1299,13 @@ after do
 end
 ```
 
-Note: Unless you use the `body` method rather than just returning a
-String from the routes, the body will not yet be available in the after
-filter, since it is generated later on.
+Nota: A menos que uses el método `body` en lugar de simplemente devolver un
+string desde una ruta, el cuerpo de la respuesta no va a estar disponible en
+un filtro after, debido a que todavía no se ha generado.
 
-Filters optionally take a pattern, causing them to be evaluated only if the
-request path matches that pattern:
+Los filtros aceptan un patrón opcional, que cuando está presente causa que los
+mismos sean evaluados únicamente si el path de la petición coincide con ese
+patrón:
 
 ```ruby
 before '/protected/*' do
@@ -1320,7 +1317,7 @@ after '/create/:slug' do |slug|
 end
 ```
 
-Like routes, filters also take conditions:
+Al igual que las rutas, los filtros también pueden aceptar condiciones:
 
 ```ruby
 before :agent => /Songbird/ do
@@ -1332,10 +1329,10 @@ after '/blog/*', :host_name => 'example.com' do
 end
 ```
 
-## Helpers
+## Ayudantes
 
-Use the top-level `helpers` method to define helper methods for use in
-route handlers and templates:
+Usá el método top-level `helpers` para definir métodos ayudantes que
+pueden ser utilizados dentro de los manejadores de rutas y las plantillas:
 
 ```ruby
 helpers do
@@ -1349,7 +1346,8 @@ get '/:name' do
 end
 ```
 
-Alternatively, helper methods can be separately defined in a module:
+Por cuestiones de organización, puede resultar conveniente organizar los métodos
+ayudantes en distintos módulos:
 
 ```ruby
 module FooUtils
@@ -1362,13 +1360,13 @@ end
 
 helpers FooUtils, BarUtils
 ```
+El efecto de utilizar *helpers* de esta manera es el mismo que resulta de
+incluir los módulos en la clase de la aplicación.
 
-The effect is the same as including the modules in the application class.
+### Usando Sesiones
 
-### Using Sessions
-
-A session is used to keep state during requests. If activated, you have one
-session hash per user session:
+Una sesión es usada para mantener el estado a través de distintas peticiones.
+Cuando están activadas, proporciona un hash de sesión para cada sesión de usuario:
 
 ```ruby
 enable :sessions
@@ -1382,43 +1380,30 @@ get '/:value' do
 end
 ```
 
-#### Session Secret Security
+#### Seguridad secreta de sesión
 
-To improve security, the session data in the cookie is signed with a session
-secret using `HMAC-SHA1`. This session secret should optimally be a
-cryptographically secure random value of an appropriate length which for
-`HMAC-SHA1` is greater than or equal to 64 bytes (512 bits, 128 hex
-characters). You would be advised not to use a secret that is less than 32
-bytes of randomness (256 bits, 64 hex characters). It is therefore **very
-important** that you don't just make the secret up, but instead use a secure
-random number generator to create it. Humans are extremely bad at generating
-random values.
+Para incrementar la seguridad, los datos de la sesión almacenados en
+la cookie son firmados con un secreto de sesión. Este secreto, es
+generado aleatoriamente por Sinatra. Este secreto de sesión debería ser un
+Valor aleatorio criptográficamente seguro de una longitud apropiada para
+`HMAC-SHA1`, debe ser mayor o igual a 64 bytes (512 bits). Se aconseja no usar un secreto que sea menos de 32
+Bytes (256 bits, 64 hex characters). Es **muy
+importante** usar un generador de numeros aleatorios para crearlo.
 
-By default, a 32 byte secure random session secret is generated for you by
-Sinatra, but it will change with every restart of your application. If you
-have multiple instances of your application, and you let Sinatra generate the
-key, each instance would then have a different session key which is probably
-not what you want.
+Por defecto, sinatra va a crear un numero secreto de session de 32 bytes por ti y va a cambiar por cada reinicio de la aplicacion. Si tu tienes multiples instancias de tu aplicacion, y dejas que Sinatra genere las llaves, cada instancia crearia entonces una llave diferente de sesion, lo cual no sea lo que tu desees.
 
-For better security and usability it's
-[recommended](https://12factor.net/config) that you generate a secure random
-secret and store it in an environment variable on each host running your
-application so that all of your application instances will share the same
-secret. You should periodically rotate this session secret to a new value.
-Here are some examples of how you might create a 64 byte secret and set it:
+Para mas información sobre seguridad y usabilidad [recomendamos](https://12factor.net/config) que tu generes un número seguro y lo guardes como variable de entorno en cada uno de los host que estén corriendo tu aplicación, de esta forma todas las instancias compartirán el mismo secreto. Debrías encargarte de cambiar este valos periodicamente. Aquí encontrarás algunos ejemplos de como podrias generar un secreto de 64 bytes y setearlo.
 
-**Session Secret Generation**
+**Generador de sesiones secretas**
 
 ```text
 $ ruby -e "require 'securerandom'; puts SecureRandom.hex(64)"
 99ae8af...snip...ec0f262ac
 ```
 
-**Session Secret Generation (Bonus Points)**
+**Generador de sesiones secretas (Bonus Points)**
 
-Use the [sysrandom gem](https://github.com/cryptosphere/sysrandom) to prefer
-use of system RNG facilities to generate random values instead of
-userspace `OpenSSL` which MRI Ruby currently defaults to:
+El uso de la gema [sysrandom](https://github.com/cryptosphere/sysrandom) es preferible al generador de `OpenSSL` que viene incluido en MRI:
 
 ```text
 $ gem install sysrandom
@@ -1430,24 +1415,17 @@ $ ruby -e "require 'sysrandom/securerandom'; puts SecureRandom.hex(64)"
 99ae8af...snip...ec0f262ac
 ```
 
-**Session Secret Environment Variable**
+**Secreto de sesion guardados en variables de entorno**
 
-Set a `SESSION_SECRET` environment variable for Sinatra to the value you
-generated. Make this value persistent across reboots of your host. Since the
-method for doing this will vary across systems this is for illustrative
-purposes only:
+Se debe poder alojar en una variable de ambiente y asegurarse que pueda ser recuperada luego de un reinicio del sistema, a modo ilustrativo podria hacerse de la siguiente manera:
 
 ```bash
 # echo "export SESSION_SECRET=99ae8af...snip...ec0f262ac" >> ~/.bashrc
 ```
 
-**Session Secret App Config**
+**Configurar el secreto en la aplicación**
 
-Setup your app config to fail-safe to a secure random secret
-if the `SESSION_SECRET` environment variable is not available.
-
-For bonus points use the [sysrandom
-gem](https://github.com/cryptosphere/sysrandom) here as well:
+Para configurar la aplicacion de forma tolerante a fallos, si es que no existe la variable `SESSION_SECRET`
 
 ```ruby
 require 'securerandom'
