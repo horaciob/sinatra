@@ -31,7 +31,7 @@ ruby myapp.rb
 
 Ver en: [http://localhost:4567](http://localhost:4567)
 
-Se recomienda ejecutar `gem install thin`, porque Sinatra lo utilizará si está disponible.
+Se recomienda ejecutar `gem install thin`, ya que Sinatra lo utilizará, por defecto si se encuentra disponible.
 
 ## Tabla de contenidos
 
@@ -1169,7 +1169,7 @@ end
 Actualmente, el método de render acepta un bloque  `erb`, `haml`,
 `liquid`, `slim `, `wlang`. Además el método general de `render` acepta el envio de un bloque.
 
-### Plantillas Inline
+### Plantillas en linea
 
 Las plantillas pueden ser definidas al final del archivo fuente:
 
