@@ -71,13 +71,13 @@ Se recomienda ejecutar `gem install thin`, ya que Sinatra lo utilizará, por def
         * [Plantillas con `yield` y capas anidadas](#plantillas-con-yield-y-capas-anidadas)
         * [Plantillas en linea](#plantillas-en-linea)
         * [Plantillas con nombres](#plantillas-con-nombres)
-        * [Asociar tipos de archivos](#asociar-tipos-de-archivo)
-        * [Añadir tu propio motor de plantillas](#adding-your-own-template-engine)
-        * [Using Custom Logic for Template Lookup](#using-custom-logic-for-template-lookup)
-    * [Filtros](#filters)
-    * [Helpers](#helpers)
-        * [Sesiones](#using-sessions)
-          * [Sesiones secretas](#session-secret-security)
+        * [Asociando Extensiones de Archivo](#asociando-extensiones-de-archivo)
+        * [Agregando Tu Propio Motor de Renderizado](#agregando-tu-propio-motor-de-renderizado)
+        * [Usando una lógica de busqueda de templates](#usando-una-logica-de-busqueda-de-templates)
+    * [Filtros](#filtros)
+    * [Ayudantes](#ayudantes)
+        * [Sesiones](#Sesiones)
+          * [Seguridad de sesiones secretas](#seguridad-de-sesiones-secretas)
           * [Configuracion de sesiones](#session-config)
           * [Elige tu propio Middleware de sesiones](#choosing-your-own-session-middleware)
         * [Terminar](#halting)
@@ -1362,7 +1362,7 @@ helpers FooUtils, BarUtils
 El efecto de utilizar *helpers* de esta manera es el mismo que resulta de
 incluir los módulos en la clase de la aplicación.
 
-### Usando Sesiones
+### Sesiones
 
 Una sesión es usada para mantener el estado a través de distintas peticiones.
 Cuando están activadas, proporciona un hash de sesión para cada sesión de usuario:
@@ -1379,7 +1379,7 @@ get '/:value' do
 end
 ```
 
-#### Seguridad secreta de sesión
+#### Seguridad de sesiones secretas
 
 Para incrementar la seguridad, los datos de la sesión almacenados en
 la cookie son firmados con un secreto de sesión. Este secreto, es
