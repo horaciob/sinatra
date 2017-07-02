@@ -77,7 +77,6 @@ pick up if available.
         * [Using Sessions](#using-sessions)
           * [Session Secret Security](#session-secret-security)
           * [Session Secret Generation](#session-secret-generation)
-          * [Session Secret Generation (Bonus Points)](#session-secret-generation-\(bonus-points\))
           * [Session Secret Environment Variable](#session-secret-environment-variable)
           * [Session Secret App Config](#session-secret-app-config)
           * [Session Config](#session-config)
