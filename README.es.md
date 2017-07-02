@@ -1195,8 +1195,7 @@ requiere Sinatra son cargadas automáticamente. Llamá `enable
 :inline_templates` explícitamente si tenés plantillas inline en otros
 archivos fuente.
 
-### Named Templates
-
+### Plantillas con nombres
 Las plantillas también pueden ser definidas usando el método top-level
 `template`:
 
